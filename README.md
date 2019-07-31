@@ -9,4 +9,4 @@
     使用Django和echart将本地数据可视化到页面
 
 效果图：
-    ![image](https://github.com/XD-null/Spider_sys/blob/master/demo.gif)
+    ![image](https://github.com/XD-null/Spider_sys/blob/master/README/demo.gif)
