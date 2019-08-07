@@ -1,10 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 引入 echarts.js -->
+<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts-en.common.js"></script>
 </head>
 <body>
-$END$
+    <div class="page-header">
+      <h1>数据更新时间 <small>
+           <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+          {{ Time }}
+      </small></h1>
+    </div>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1000px;height:800px;"></div>
+    <script type="text/javascript">
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '实时电影数据'
+            },
+            tooltip: {},
+            legend: {
+                data:['上映天数','实时票房 (单位:万元)','累计票房 (单位:万元)','实时场次','上映天数']
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {},
+            series: []
+        };
+
+        {% for moive in Movie %}
+            option.xAxis.data.push('{{ moive.name }}')
+        {% endfor %}
+
+        var data = []
+        {% for moive in Movie %}
+            data.push({{ moive.Release_time }})
+            //console.log(data)
+        {% endfor %}
+        option.series.push(
+            {
+                name: '上映天数',
+                type: 'bar',
+                data: data
+            }
+                )
+        var data = []
+        {% for moive in Movie %}
+            data.push({{ moive.real_time_gross }})
+        {% endfor %}
+        option.series.push(
+            {
+                name: '实时票房 (单位:万元)',
+                type: 'bar',
+                data: data
+            }
+                )
+        var data = []
+        {% for moive in Movie %}
+            data.push({{ moive.total_box_office }})
+        {% endfor %}
+        option.series.push(
+            {
+                name: '累计票房 (单位:万元)',
+                type: 'bar',
+                data: data
+            }
+                )
+        var data = []
+        {% for moive in Movie %}
+            data.push({{ moive.row_screenings }})
+        {% endfor %}
+        option.series.push(
+            {
+                name: '实时场次',
+                type: 'bar',
+                data: data
+            }
+                )
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+    </script>
+    <footer class="footer">
+        <nav class="navbar navbar-default navbar-static-bottom">
+          <div class="container">
+              <p class="navbar-text navbar-left">👉 <a href="#" class="navbar-link">关于本站</a></p>
+              <p class="navbar-text"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>本网站立足于美利坚合众国，受到当地法律保护</p>
+              <p class="navbar-text navbar-right"><a href="#" class="navbar-link">服务器地图</a>👈 </p>
+          </div>
+        </nav>
+    </footer>
 </body>
 </html>

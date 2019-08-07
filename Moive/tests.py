@@ -1,3 +1,4 @@
-from django.test import TestCase
+import threading
+import time
 
-# Create your tests here.
+print(time.ctime())
