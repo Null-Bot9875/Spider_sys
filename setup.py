@@ -14,7 +14,7 @@ setup(
         'themes/*/*/*/*',
         ]},
     install_requires = [
-        'django~=2.23',
+        'django>=2.23,<3.0',
     ],
     extras_require = {
         'ipython': ['ipython==6.2.1']
