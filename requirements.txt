@@ -4,7 +4,7 @@ cssselect==1.0.3
 Django==2.2.3
 get==2019.4.13
 idna==2.8
-lxml==4.4.0
+lxml==4.6.3
 post==2019.4.13
 public==2019.4.13
 pyquery==1.4.0
